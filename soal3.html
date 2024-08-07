@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Add some basic styling to the page */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding: 10px;
+        }
+
+        input {
+            flex-basis: calc(50% - 5px);
+            margin-bottom: 1rem;
+        }
+
+        button {
+            flex-basis: 50%;
+            margin-top: 1rem;
+        }
+
+        .result {
+            flex-basis: 100%;
+            margin-top: 2rem;
+        }
+
+        .bmi-category {
+            font-weight: bold;
+            color: #0e6fff;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w-full p-5">
+        <div class="w-full flex flex-wrap">
+            <!-- control link section -->
+            <div class=" w-full md:w-1/2 p-5">
+                <strong class="font-bold">cek tinggi dan berat badanmu</strong>
+                <br />
+                <h1>BMI Calculator</h1>
+                <div class="container">
+                    <input type="number" id="weight" placeholder="Weight (kg)" step="0.1">
+                    <input type="number" id="height" placeholder="Height (m)" step="0.01">
+                    <button onclick="calculateBMI()">Calculate BMI</button>
+                </div>
+                <div id="result" class="result">
+                    <div id="bmi-value" class="bmi-value"></div>
+                    <div id="bmi-category" class="bmi-category"></div>
+                    <div id="interpretation"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to calculate the BMI value
+        function calculateBMI() {
+            // Get the user's input
+            const weight = document.getElementById("weight").value;
+            const height = document.getElementById("height").value;
+
+            // Calculate the BMI value
+            const bmi = weight / Math.pow(height, 2);
+
+            // Display the BMI value
+            document.getElementById("bmi-value").innerText = `BMI: ${bmi.toFixed(2)}`;
+
+            // Display the BMI category
+            let category = "";
+            if (bmi < 18.5) {
+                category = 'kekurangan berat badan';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = 'normal (ideal)';
+            } else if (bmi >= 25 && bmi < 30) {
+                category = 'kelebihan berat badan';
+            } else {
+                category = 'kegemukan';
+            }
+            document.getElementById("bmi-category").textContent = `Kategori: ${category}`;
+
+            // Display the interpretation
+            document.getElementById("interpretation").innerText = "Makan yang sehat dan seimbang, serta lakukan olahraga secara teratur.";
+        }
+
+        // Example usage with Rhodey's data
+        function calculateRhodeyBMI() {
+            const weight = 90;
+            const height = 1.70;
+
+            const bmi = weight / Math.pow(height, 2);
+            console.log(`Rhodey's BMI: ${bmi.toFixed(2)}`);
+        }
+
+        // Call this function to see Rhodey's BMI in the console
+        calculateRhodeyBMI();
+    </script>
+</body>
+
+</html>
